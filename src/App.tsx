@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { DOMMessage, DOMMessageResponse } from "./types";
+import logo from "../../public/img/logo.png";
 
 function App() {
   const [title, setTitle] = React.useState("");
@@ -39,12 +40,15 @@ function App() {
               setTitle(response.title);
               setName(
                 response.name?.split(",").reverse().join(" ") || "to ADO Butler"
+              
               );
               setImage(response.image || "");
               setHeadlines(response.headlines);
             }
           );
+          
         }
+        
       );
   });
 
@@ -57,6 +61,7 @@ function App() {
 
   return (
     <div className="App">
+            <img src="/assets/vodafone.png" className={'logo'} alt="logo" />
       <h1>ADO Butler</h1>
 
       <ul className="SEOForm">
@@ -71,8 +76,6 @@ function App() {
               </span>
             </div>
           </div>
-          {/* <div className="Image">{image}</div> */}
-          <img src={image}></img>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
         <button onClick={() => clickAThing()}>Click me pls</button>

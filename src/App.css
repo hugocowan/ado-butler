@@ -68,3 +68,10 @@
   border-radius: 10px;
   width: 150px;
 }
+
+.logo {
+  height: 30px;
+  width: 30px;
+  float: right;
+  margin-top: 30px;
+}
