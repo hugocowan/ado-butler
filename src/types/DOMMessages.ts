@@ -1,5 +1,6 @@
 export type DOMMessage = {
   type: "GET_DOM";
+  action: string;
 };
 
 export type DOMMessageResponse = {

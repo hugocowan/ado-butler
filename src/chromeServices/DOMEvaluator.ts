@@ -7,6 +7,10 @@ const messagesFromReactAppListener = (
 ) => {
   // console.log("[content.js]. Message received", msg);
 
+  if (msg.action === "clickAThing") {
+    document.body.style.border = "5px solid green";
+  }
+
   const response: DOMMessageResponse = {
     title: document.title,
     headlines: Array.from(document.getElementsByTagName<"h1">("h1")).map(

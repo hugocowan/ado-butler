@@ -6,6 +6,9 @@ function App() {
   const [title, setTitle] = React.useState("");
   const [name, setName] = React.useState("");
   const [headlines, setHeadlines] = React.useState<string[]>([]);
+  const [tab, setTab] = React.useState<chrome.tabs.Tab | null>(null);
+  const [firstSelect, setFirstSelect] = React.useState("");
+  const [secondSelect, setSecondSelect] = React.useState("");
   const [image, setImage] = React.useState("");
 
   React.useEffect(() => {
@@ -20,6 +23,7 @@ function App() {
           currentWindow: true,
         },
         (tabs) => {
+          setTab(tabs[0]);
           /**
            * Sends a single message to the content script(s) in the specified tab,
            * with an optional callback to run when a response is sent back.
@@ -44,20 +48,12 @@ function App() {
       );
   });
 
-  const clickAThing = async () => {
-    // const script = ScriptInjection('console.log("hello world!")');
-    const tab = await chrome.tabs.getCurrent();
-    try {
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id || 0 },
-        func: () => {
-          document.body.style.border = "5px solid green";
-        },
-      });
-    } catch (err) {
-      console.error(`failed to execute script: ${err}`);
-    }
+  const clickAThing = () => {
+    console.log("Hi!");
+    chrome.tabs.sendMessage(tab?.id || 0, { action: "clickAThing" });
   };
+
+  console.log(process.env.REACT_APP_TEAMS);
 
   return (
     <div className="App">
@@ -79,7 +75,7 @@ function App() {
           <img src={image}></img>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
-        <button onClick={async () => await clickAThing()}>Click me</button>
+        <button onClick={() => clickAThing()}>Click me pls</button>
 
         <li className="SEOValidation">
           <div className="SEOValidationField">
@@ -96,13 +92,35 @@ function App() {
               ))}
             </ul>
           </div>
-          <select className="Dropdown">
-            <option value="option1">A team</option>
-            <option value="option2">A person</option>
-            <option value="option3">A project</option>
-            <option value="option3">A wiki page</option>
-            <option value="option3">A PAT token</option>
-          </select>
+          <div className="selects">
+            <select
+              onChange={(e) => setFirstSelect(e.target.value)}
+              value={firstSelect}
+              className="Dropdown"
+            >
+              <option value="">Select an option</option>
+              <option value="team">A team</option>
+              <option value="person">A person</option>
+              <option value="project">A project</option>
+              <option value="wiki">A wiki page</option>
+              <option value="pat">A PAT token</option>
+            </select>
+
+            {["team", "wiki"].includes(firstSelect) && (
+              <select
+                onChange={(e) => setSecondSelect(e.target.value)}
+                value={secondSelect}
+                className="Dropdown"
+              >
+                <option value="">Select a team</option>
+                {process.env.REACT_APP_TEAMS?.split(",").map((team) => (
+                  <option key={team} value={team}>
+                    {team}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
         </li>
       </ul>
     </div>
