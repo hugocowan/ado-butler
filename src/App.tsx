@@ -4,6 +4,7 @@ import { DOMMessage, DOMMessageResponse } from "./types";
 
 function App() {
   const [title, setTitle] = React.useState("");
+  const [name, setName] = React.useState("");
   const [headlines, setHeadlines] = React.useState<string[]>([]);
 
   React.useEffect(() => {
@@ -29,13 +30,32 @@ function App() {
             tabs[0].id || 0,
             { type: "GET_DOM" } as DOMMessage,
             (response: DOMMessageResponse) => {
+              console.log("Hello!", response.menu);
               setTitle(response.title);
+              setName(
+                response.name?.split(",").reverse().join(" ") || "to ADO Butler"
+              );
               setHeadlines(response.headlines);
             }
           );
         }
       );
   });
+
+  const clickAThing = async () => {
+    // const script = ScriptInjection('console.log("hello world!")');
+    const tab = await chrome.tabs.getCurrent();
+    try {
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id || 0 },
+        func: () => {
+          document.body.style.border = "5px solid green";
+        },
+      });
+    } catch (err) {
+      console.error(`failed to execute script: ${err}`);
+    }
+  };
 
   return (
     <div className="App">
@@ -44,28 +64,26 @@ function App() {
       <ul className="SEOForm">
         <li className="SEOValidation">
           <div className="SEOValidationField">
-            <span className="SEOValidationFieldTitle">Welcome John!</span>
+            <span className="SEOValidationFieldTitle">Welcome {name}!</span>
             <div className="QuestionDiv">
-            <span className="Question">What can I help you with...</span>
-    
-            <span
-              className={`SEOValidationFieldStatus Error`}
-            >
-               What do you need help with?
-            </span>
+              <span className="Question">What can I help you with...</span>
+
+              <span className={`SEOValidationFieldStatus Error`}>
+                What do you need help with?
+              </span>
             </div>
           </div>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
-        
+        <button onClick={async () => await clickAThing()}>Click me</button>
 
         <li className="SEOValidation">
           <div className="SEOValidationField">
-            <span className="SEOValidationFieldTitle">Please select an option from the below. I'm looking for information realting to… (single select)</span>
-            <span
-              className={`SEOValidationFieldStatus`}
-            >
+            <span className="SEOValidationFieldTitle">
+              Please select an option from the below... I'm looking for
+              information relating to...
             </span>
+            <span className={`SEOValidationFieldStatus`}></span>
           </div>
           <div className="SEOVAlidationFieldValue">
             <ul>
