@@ -44,21 +44,25 @@ function App() {
       <ul className="SEOForm">
         <li className="SEOValidation">
           <div className="SEOValidationField">
-            <span className="SEOValidationFieldTitle">Title</span>
+            <span className="SEOValidationFieldTitle">Welcome John!</span>
+            <div className="QuestionDiv">
+            <span className="Question">What can I help you with...</span>
+    
             <span
-              className={`SEOValidationFieldStatus ${
-                title.length < 30 || title.length > 65 ? "Error" : "Ok"
-              }`}
+              className={`SEOValidationFieldStatus Error`}
             >
-              {title.length} Characters
+               What do you need help with?
             </span>
+            </div>
           </div>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
+        
 
         <li className="SEOValidation">
           <div className="SEOValidationField">
-            <span className="SEOValidationFieldTitle">Main Heading</span>
+            <span className="SEOValidationFieldTitle">Please select an option from the below... I'm looking for information
+            relating to...</span>
             <span
               className={`SEOValidationFieldStatus ${
                 headlines.length !== 1 ? "Error" : "Ok"
