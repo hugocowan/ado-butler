@@ -61,14 +61,10 @@ function App() {
 
         <li className="SEOValidation">
           <div className="SEOValidationField">
-            <span className="SEOValidationFieldTitle">Please select an option from the below... I'm looking for information
-            relating to...</span>
+            <span className="SEOValidationFieldTitle">Please select an option from the below. I'm looking for information realting to… (single select)</span>
             <span
-              className={`SEOValidationFieldStatus ${
-                headlines.length !== 1 ? "Error" : "Ok"
-              }`}
+              className={`SEOValidationFieldStatus`}
             >
-              {headlines.length}
             </span>
           </div>
           <div className="SEOVAlidationFieldValue">
@@ -78,6 +74,13 @@ function App() {
               ))}
             </ul>
           </div>
+          <select className="Dropdown">
+            <option value="option1">A team</option>
+            <option value="option2">A person</option>
+            <option value="option3">A project</option>
+            <option value="option3">A wiki page</option>
+            <option value="option3">A PAT token</option>
+          </select>
         </li>
       </ul>
     </div>
