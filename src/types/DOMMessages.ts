@@ -7,4 +7,7 @@ export type DOMMessageResponse = {
   headlines: string[];
   menu: any[];
   name: string | undefined;
+  image: string | undefined | null;
 };
+
+

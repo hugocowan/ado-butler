@@ -6,6 +6,7 @@ function App() {
   const [title, setTitle] = React.useState("");
   const [name, setName] = React.useState("");
   const [headlines, setHeadlines] = React.useState<string[]>([]);
+  const [image, setImage] = React.useState("");
 
   React.useEffect(() => {
     /**
@@ -35,6 +36,7 @@ function App() {
               setName(
                 response.name?.split(",").reverse().join(" ") || "to ADO Butler"
               );
+              setImage(response.image || "");
               setHeadlines(response.headlines);
             }
           );
@@ -73,6 +75,8 @@ function App() {
               </span>
             </div>
           </div>
+          {/* <div className="Image">{image}</div> */}
+          <img src={image}></img>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
         <button onClick={async () => await clickAThing()}>Click me</button>

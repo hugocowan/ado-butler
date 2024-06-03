@@ -18,12 +18,22 @@ const messagesFromReactAppListener = (
       }
     ),
     name: document.getElementById("mectrl_currentAccount_primary")?.innerHTML,
+    image: document.querySelector('.vss-Persona-content using-image')?.getAttribute('src'),
   };
+
+  
+
+
+
+
 
   // console.log("[content.js]. Message response", response);
 
   sendResponse(response);
 };
+
+// "img-vss-Persona-content.using-image"
+
 
 /**
  * Fired when a message is sent from either an extension process or a content script.
