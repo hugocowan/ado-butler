@@ -51,7 +51,7 @@
       "patterns": [
         "src"
       ],
-      "extensions": "js,jsx"
+      "extensions": "js,jsx,ts,tsx"
     }
   }
 }

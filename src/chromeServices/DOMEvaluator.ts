@@ -7,8 +7,9 @@ const messagesFromReactAppListener = (
 ) => {
   // console.log("[content.js]. Message received", msg);
 
-  if (msg.action === "clickAThing") {
-    document.body.style.border = "5px solid green";
+  if (msg.action === "makeQuery") {
+    window.location.href =
+      "https://vfuk-digital.visualstudio.com/Digital/_queries/query-edit/?newQuery=true";
   }
 
   const response: DOMMessageResponse = {
@@ -22,14 +23,10 @@ const messagesFromReactAppListener = (
       }
     ),
     name: document.getElementById("mectrl_currentAccount_primary")?.innerHTML,
-    image: document.querySelector('.vss-Persona-content using-image')?.getAttribute('src'),
+    image: document
+      .querySelector(".vss-Persona-content using-image")
+      ?.getAttribute("src"),
   };
-
-  
-
-
-
-
 
   // console.log("[content.js]. Message response", response);
 
@@ -37,7 +34,6 @@ const messagesFromReactAppListener = (
 };
 
 // "img-vss-Persona-content.using-image"
-
 
 /**
  * Fired when a message is sent from either an extension process or a content script.

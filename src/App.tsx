@@ -10,6 +10,8 @@ function App() {
   const [tab, setTab] = React.useState<chrome.tabs.Tab | null>(null);
   const [firstSelect, setFirstSelect] = React.useState("");
   const [secondSelect, setSecondSelect] = React.useState("");
+  const [thirdSelect, setThirdSelect] = React.useState("");
+  const [fourthSelect, setFourthSelect] = React.useState("");
   const [image, setImage] = React.useState("");
 
   React.useEffect(() => {
@@ -40,28 +42,30 @@ function App() {
               setTitle(response.title);
               setName(
                 response.name?.split(",").reverse().join(" ") || "to ADO Butler"
-              
               );
               setImage(response.image || "");
               setHeadlines(response.headlines);
             }
           );
-          
         }
-        
       );
   });
 
-  const clickAThing = () => {
-    console.log("Hi!");
-    chrome.tabs.sendMessage(tab?.id || 0, { action: "clickAThing" });
+  const makeQuery = () => {
+    chrome.tabs.sendMessage(tab?.id || 0, {
+      action: "makeQuery",
+      data: {
+        firstSelect,
+        secondSelect,
+        thirdSelect,
+        fourthSelect,
+      },
+    });
   };
-
-  console.log(process.env.REACT_APP_TEAMS);
 
   return (
     <div className="App">
-            <img src="/assets/vodafone.png" className={'logo'} alt="logo" />
+      <img src="/assets/vodafone.png" className={"logo"} alt="logo" />
       <h1>ADO Butler</h1>
 
       <ul className="SEOForm">
@@ -78,7 +82,6 @@ function App() {
           </div>
           <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
-        <button onClick={() => clickAThing()}>Click me pls</button>
 
         <li className="SEOValidation">
           <div className="SEOValidationField">
@@ -122,6 +125,48 @@ function App() {
                   </option>
                 ))}
               </select>
+            )}
+
+            {secondSelect !== "" && (
+              <select
+                onChange={(e) => setThirdSelect(e.target.value)}
+                value={thirdSelect}
+                multiple={true}
+              >
+                <option value="">Select a work item type</option>
+                <option value="Theme">Theme</option>
+                <option value="Epic">Epic</option>
+                <option value="Feature">Feature</option>
+                <option value="User Story">User Story</option>
+                <option value="Bug">Bug</option>
+                <option value="Task">Task</option>
+                <option value="Test Data">Test Data</option>
+                <option value="Release">Release</option>
+              </select>
+            )}
+
+            {thirdSelect && (
+              <select
+                onChange={(e) => setFourthSelect(e.target.value)}
+                value={fourthSelect}
+                multiple={true}
+              >
+                <option value="">Select the relevant sprints</option>
+                <option value="Select all">Select all</option>
+                <option value="Current sprint">Current sprint</option>
+                <option value="33.3">33.3</option>
+                <option value="33.2">33.2</option>
+                <option value="33.1">33.1</option>
+                <option value="32.5">32.5</option>
+                <option value="32.4">32.4</option>
+                <option value="32.3">32.3</option>
+                <option value="32.2">32.2</option>
+                <option value="32.1">32.1</option>
+              </select>
+            )}
+
+            {fourthSelect && (
+              <button onClick={() => makeQuery()}>Click me pls</button>
             )}
           </div>
         </li>
