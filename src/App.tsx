@@ -1,18 +1,14 @@
 import React from "react";
 import "./App.css";
 import { DOMMessage, DOMMessageResponse } from "./types";
-import logo from "../../public/img/logo.png";
 
 function App() {
-  const [title, setTitle] = React.useState("");
   const [name, setName] = React.useState("");
-  const [headlines, setHeadlines] = React.useState<string[]>([]);
   const [tab, setTab] = React.useState<chrome.tabs.Tab | null>(null);
   const [firstSelect, setFirstSelect] = React.useState("");
   const [secondSelect, setSecondSelect] = React.useState("");
-  const [thirdSelect, setThirdSelect] = React.useState("");
+  const [thirdSelect, setThirdSelect] = React.useState([""]);
   const [fourthSelect, setFourthSelect] = React.useState("");
-  const [image, setImage] = React.useState("");
 
   React.useEffect(() => {
     /**
@@ -39,12 +35,9 @@ function App() {
             { type: "GET_DOM" } as DOMMessage,
             (response: DOMMessageResponse) => {
               console.log("Hello!", response.menu);
-              setTitle(response.title);
               setName(
                 response.name?.split(",").reverse().join(" ") || "to ADO Butler"
               );
-              setImage(response.image || "");
-              setHeadlines(response.headlines);
             }
           );
         }
@@ -63,6 +56,16 @@ function App() {
     });
   };
 
+  const handleMultiSelectChange = (
+    callback: any,
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newValues = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+    callback(newValues);
+  };
+
   return (
     <div className="App">
       <img src="/assets/vodafone.png" className={"logo"} alt="logo" />
@@ -72,15 +75,7 @@ function App() {
         <li className="SEOValidation">
           <div className="SEOValidationField">
             <span className="SEOValidationFieldTitle">Welcome {name}!</span>
-            <div className="QuestionDiv">
-              <span className="Question">What can I help you with...</span>
-
-              <span className={`SEOValidationFieldStatus Error`}>
-                What do you need help with?
-              </span>
-            </div>
           </div>
-          <div className="SEOVAlidationFieldValue">{title}</div>
         </li>
 
         <li className="SEOValidation">
@@ -90,13 +85,6 @@ function App() {
               information relating to...
             </span>
             <span className={`SEOValidationFieldStatus`}></span>
-          </div>
-          <div className="SEOVAlidationFieldValue">
-            <ul>
-              {headlines.map((headline, index) => (
-                <li key={index}>{headline}</li>
-              ))}
-            </ul>
           </div>
           <div className="selects">
             <select
@@ -129,27 +117,47 @@ function App() {
 
             {secondSelect !== "" && (
               <select
-                onChange={(e) => setThirdSelect(e.target.value)}
+                onChange={(e) => handleMultiSelectChange(setThirdSelect, e)}
                 value={thirdSelect}
                 multiple={true}
+                className="Dropdown"
               >
-                <option value="">Select a work item type</option>
-                <option value="Theme">Theme</option>
-                <option value="Epic">Epic</option>
-                <option value="Feature">Feature</option>
-                <option value="User Story">User Story</option>
-                <option value="Bug">Bug</option>
-                <option value="Task">Task</option>
-                <option value="Test Data">Test Data</option>
-                <option value="Release">Release</option>
+                <option key="" value="">
+                  Select a work item type
+                </option>
+                <option key="Theme" value="Theme">
+                  Theme
+                </option>
+                <option key="Epic" value="Epic">
+                  Epic
+                </option>
+                <option key="Feature" value="Feature">
+                  Feature
+                </option>
+                <option key="User Story" value="User Story">
+                  User Story
+                </option>
+                <option key="Bug" value="Bug">
+                  Bug
+                </option>
+                <option key="Task" value="Task">
+                  Task
+                </option>
+                <option key="Test Data" value="Test Data">
+                  Test Data
+                </option>
+                <option key="Release" value="Release">
+                  Release
+                </option>
               </select>
             )}
 
-            {thirdSelect && (
+            {thirdSelect[0] !== "" && (
               <select
-                onChange={(e) => setFourthSelect(e.target.value)}
+                onChange={(e) => handleMultiSelectChange(setFourthSelect, e)}
                 value={fourthSelect}
                 multiple={true}
+                className="Dropdown"
               >
                 <option value="">Select the relevant sprints</option>
                 <option value="Select all">Select all</option>
