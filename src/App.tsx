@@ -68,8 +68,10 @@ function App() {
 
   return (
     <div className="App">
-      <img src="/assets/vodafone.png" className={"logo"} alt="logo" />
-      <h1>ADO Butler</h1>
+      <div className="header">
+        <h1>ADO Butler</h1>
+        <img src="/assets/vodafone.png" className={"logo"} alt="logo" />
+      </div>
 
       <ul className="SEOForm">
         <li className="SEOValidation">

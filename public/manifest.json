@@ -15,8 +15,8 @@
   ],
   "permissions": ["activeTab", "management"],
   "icons": {
-    "16": "logo192.png",
-    "48": "logo192.png",
-    "128": "logo192.png"
+    "16": "favicon.ico",
+    "48": "favicon.ico",
+    "128": "favicon.ico"
   }
 }
