@@ -9,7 +9,7 @@ const messagesFromReactAppListener = (
 
   if (msg.action === "makeQuery") {
     window.location.href =
-      "https://vfuk-digital.visualstudio.com/Digital/_queries/query-edit/?newQuery=true";
+      "https://vfuk-digital.visualstudio.com/Digital/_queries/query/?tempQueryId=fbd5b2c7-e848-4b13-bfcb-ff4fbe4562f7";
   }
 
   const response: DOMMessageResponse = {

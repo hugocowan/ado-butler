@@ -63,10 +63,20 @@
 
 .selects select {
   font-weight: bold;
-  padding: 4px;
+  padding: 9px;
   margin: 8px;
-  border-radius: 10px;
-  width: 150px;
+  border-radius: 5px;
+  width: 280px;
+  justify-self: center;
+  /* background-color: #f23b3b; */
+}
+
+.selects select option.selected {
+  border: #1a202c 1px solid;
+}
+
+.selects select option:hover {
+  background-color: #f23b3b;
 }
 
 .logo {
@@ -74,4 +84,37 @@
   width: 30px;
   float: right;
   margin-top: 30px;
+}
+
+.choices {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: #983535;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 9px;
+}
+
+.submit {
+  margin-top: 1rem;
+  background-color: #983535;
+  width: 50%;
+  justify-self: center;
+}
+
+.submit:hover {
+  background-color: #f23b3b;
+}
+
+.choices button:hover {
+  background-color: #f23b3b;
+}
+
+.choices button.selected {
+  background-color: #f23b3b;
 }

@@ -82,24 +82,43 @@ function App() {
           <div className="SEOValidationField">
             <span className="SEOValidationFieldTitle">
               Please select an option from the below... I'm looking for
-              information relating to...
+              information relating to a...
             </span>
             <span className={`SEOValidationFieldStatus`}></span>
           </div>
-          <div className="selects">
-            <select
-              onChange={(e) => setFirstSelect(e.target.value)}
-              value={firstSelect}
-              className="Dropdown"
+          <div className="choices">
+            <button
+              className={firstSelect === "person" ? "selected" : ""}
+              onClick={(e) => setFirstSelect("person")}
             >
-              <option value="">Select an option</option>
-              <option value="team">A team</option>
-              <option value="person">A person</option>
-              <option value="project">A project</option>
-              <option value="wiki">A wiki page</option>
-              <option value="pat">A PAT token</option>
-            </select>
-
+              Person
+            </button>
+            <button
+              className={firstSelect === "project" ? "selected" : ""}
+              onClick={(e) => setFirstSelect("project")}
+            >
+              Project
+            </button>
+            <button
+              className={firstSelect === "team" ? "selected" : ""}
+              onClick={(e) => setFirstSelect("team")}
+            >
+              Team
+            </button>
+            <button
+              className={firstSelect === "wiki" ? "selected" : ""}
+              onClick={(e) => setFirstSelect("wiki")}
+            >
+              Wiki page
+            </button>
+            <button
+              className={firstSelect === "pat" ? "selected" : ""}
+              onClick={(e) => setFirstSelect("pat")}
+            >
+              PAT setup
+            </button>
+          </div>
+          <div className="selects">
             {["team", "wiki"].includes(firstSelect) && (
               <select
                 onChange={(e) => setSecondSelect(e.target.value)}
@@ -125,28 +144,64 @@ function App() {
                 <option key="" value="">
                   Select a work item type
                 </option>
-                <option key="Theme" value="Theme">
+                <option
+                  className={thirdSelect.includes("Theme") ? "selected" : ""}
+                  key="Theme"
+                  value="Theme"
+                >
                   Theme
                 </option>
-                <option key="Epic" value="Epic">
+                <option
+                  className={thirdSelect.includes("Epic") ? "selected" : ""}
+                  key="Epic"
+                  value="Epic"
+                >
                   Epic
                 </option>
-                <option key="Feature" value="Feature">
+                <option
+                  className={thirdSelect.includes("Feature") ? "selected" : ""}
+                  key="Feature"
+                  value="Feature"
+                >
                   Feature
                 </option>
-                <option key="User Story" value="User Story">
+                <option
+                  className={
+                    thirdSelect.includes("User Story") ? "selected" : ""
+                  }
+                  key="User Story"
+                  value="User Story"
+                >
                   User Story
                 </option>
-                <option key="Bug" value="Bug">
+                <option
+                  className={thirdSelect.includes("Bug") ? "selected" : ""}
+                  key="Bug"
+                  value="Bug"
+                >
                   Bug
                 </option>
-                <option key="Task" value="Task">
+                <option
+                  className={thirdSelect.includes("Task") ? "selected" : ""}
+                  key="Task"
+                  value="Task"
+                >
                   Task
                 </option>
-                <option key="Test Data" value="Test Data">
+                <option
+                  className={
+                    thirdSelect.includes("Test Data") ? "selected" : ""
+                  }
+                  key="Test Data"
+                  value="Test Data"
+                >
                   Test Data
                 </option>
-                <option key="Release" value="Release">
+                <option
+                  className={thirdSelect.includes("Release") ? "selected" : ""}
+                  key="Release"
+                  value="Release"
+                >
                   Release
                 </option>
               </select>
@@ -160,21 +215,77 @@ function App() {
                 className="Dropdown"
               >
                 <option value="">Select the relevant sprints</option>
-                <option value="Select all">Select all</option>
-                <option value="Current sprint">Current sprint</option>
-                <option value="33.3">33.3</option>
-                <option value="33.2">33.2</option>
-                <option value="33.1">33.1</option>
-                <option value="32.5">32.5</option>
-                <option value="32.4">32.4</option>
-                <option value="32.3">32.3</option>
-                <option value="32.2">32.2</option>
-                <option value="32.1">32.1</option>
+                <option
+                  className={
+                    fourthSelect.includes("Select all") ? "selected" : ""
+                  }
+                  value="Select all"
+                >
+                  Select all
+                </option>
+                <option
+                  className={
+                    fourthSelect.includes("Current sprint") ? "selected" : ""
+                  }
+                  value="Current sprint"
+                >
+                  Current sprint
+                </option>
+                <option
+                  className={fourthSelect.includes("33.3") ? "selected" : ""}
+                  value="33.3"
+                >
+                  33.3
+                </option>
+                <option
+                  className={fourthSelect.includes("33.2") ? "selected" : ""}
+                  value="33.2"
+                >
+                  33.2
+                </option>
+                <option
+                  className={fourthSelect.includes("33.1") ? "selected" : ""}
+                  value="33.1"
+                >
+                  33.1
+                </option>
+                <option
+                  className={fourthSelect.includes("32.5") ? "selected" : ""}
+                  value="32.5"
+                >
+                  32.5
+                </option>
+                <option
+                  className={fourthSelect.includes("32.4") ? "selected" : ""}
+                  value="32.4"
+                >
+                  32.4
+                </option>
+                <option
+                  className={fourthSelect.includes("32.3") ? "selected" : ""}
+                  value="32.3"
+                >
+                  32.3
+                </option>
+                <option
+                  className={fourthSelect.includes("32.2") ? "selected" : ""}
+                  value="32.2"
+                >
+                  32.2
+                </option>
+                <option
+                  className={fourthSelect.includes("32.1") ? "selected" : ""}
+                  value="32.1"
+                >
+                  32.1
+                </option>
               </select>
             )}
 
             {fourthSelect && (
-              <button onClick={() => makeQuery()}>Click me pls</button>
+              <button className="submit" onClick={() => makeQuery()}>
+                Submit
+              </button>
             )}
           </div>
         </li>
